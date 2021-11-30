@@ -83,6 +83,18 @@ class EmojiArtDocument: ObservableObject
         }
     }
     
+    func scale_emoji(center: CGPoint, mag: Float) {
+        let cx = Float(center.x)
+        let cy = Float(center.y)
+        emojiArt.scale_emoji(cx: cx, cy: cy, mag: mag)
+    }
+    
+    func scale_background(center: CGPoint, mag: Float) {
+        let cx = Float(center.x)
+        let cy = Float(center.y)
+        emojiArt.scale_background(cx: cx, cy: cy, mag: mag)
+    }
+    
     func get_background_location() -> (x: Float, y: Float) {
         return emojiArt.get_background_location()
     }
@@ -141,7 +153,37 @@ class EmojiArtDocument: ObservableObject
         emojiArt.set_background_flag(flag: flag)
     }
     
+    func get_mag_of(emoji: EmojiArtModel.Emoji) -> Double {
+        return emojiArt.get_mag_of(emoji: emoji)
+    }
+    
+    func get_background_mag() -> Double {
+        return emojiArt.get_background_mag()
+    }
+    
+    func set_background_mag(mag: Double) {
+        emojiArt.set_background_mag(mag: mag)
+    }
+    
+    func get_background_mag_o() -> Double {
+        return emojiArt.get_background_mag_o()
+    }
+    
+    func set_background_mag_o(mag: Double) {
+        emojiArt.set_background_mag_o(mag: mag)
+    }
+    
+    func set_mag(mag: Double) {
+        emojiArt.set_mag(mag: mag)
+    }
+    
+    func set_mag_selected(mag: Double) {
+        emojiArt.set_mag_selected(mag: mag)
+    }
+    
     func select_emoji(emoji: EmojiArtModel.Emoji) {
+        emojiArt.pannable = false
+        emojiArt.zoomable = false
         if let index = emojiArt.emojis.index(matching: emoji) {
             
             if !emojiArt.emojis[index].is_selected {
@@ -153,6 +195,10 @@ class EmojiArtDocument: ObservableObject
                 emojiArt.emojis[index].is_selected = false
             }
         }
+    }
+    
+    func set_emoji_at(index: Int, x: Int, y: Int) {
+        emojiArt.set_loc_of(emoji: emojiArt.emojis[index], x: x, y: y)
     }
     
     func unselect_emoji(emoji: EmojiArtModel.Emoji) {
@@ -172,5 +218,8 @@ class EmojiArtDocument: ObservableObject
             emojiArt.emojis[index].op = 1.0
             emojiArt.emojis[index].is_selected = false
         }
+        
+        emojiArt.zoomable = true
+        emojiArt.pannable = true
     }
 }
