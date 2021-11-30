@@ -19,8 +19,8 @@ class EmojiArtDocument: ObservableObject
     
     init() {
         emojiArt = EmojiArtModel()
-        emojiArt.addEmoji("😀", at: (-200, -100), size: 80)
-        emojiArt.addEmoji("😷", at: (50, 100), size: 40)
+        emojiArt.addEmoji("😀", at: (375, 343), size: 80)
+        emojiArt.addEmoji("😷", at: (470, 283), size: 40)
     }
     
     var emojis: [EmojiArtModel.Emoji] { emojiArt.emojis }
@@ -83,16 +83,62 @@ class EmojiArtDocument: ObservableObject
         }
     }
     
-    func get_back_loc() -> CGPoint {
-        var cgp: CGPoint = CGPoint(x: 0, y: 0)
-        cgp.x = CGFloat(emojiArt.back_loc_x)
-        cgp.y = CGFloat(emojiArt.back_loc_y)
-        return cgp
+    func get_background_location() -> (x: Float, y: Float) {
+        return emojiArt.get_background_location()
     }
     
-    func set_back_loc(cgp: CGPoint) {
-        emojiArt.back_loc_x = Float(cgp.x)
-        emojiArt.back_loc_x = Float(cgp.y)
+    func set_background_location(x: Float, y: Float, _ location: (xs: Float, ys: Float)) {
+        emojiArt.set_background_location(x: x, y: y, (xs: location.xs, ys: location.ys))
+    }
+    
+    func get_old_background_location() -> (xo: Float, yo: Float) {
+        return emojiArt.get_old_background_location()
+    }
+    
+    func set_old_background_location(xo: Float, yo: Float, cgp: CGPoint) {
+        let xs = Float(cgp.x)
+        let ys = Float(cgp.y)
+        emojiArt.set_old_background_location(xo: xo, yo: yo, (xs: xs, ys: ys))
+    }
+    
+    func set_del_pos(delx: Int, dely: Int) {
+        emojiArt.set_del_loc(delx: delx, dely: dely)
+    }
+    
+    func set_loc(x: Int, y: Int, cgp: CGPoint) {
+        let xs = Int(cgp.x)
+        let ys = Int(cgp.y)
+        emojiArt.set_location(x: x, y: y, (xs: xs, ys: ys))
+    }
+    
+    func set_old_loc(x: Int, y: Int, cgp: CGPoint) {
+        let xs = Int(cgp.x)
+        let ys = Int(cgp.y)
+        emojiArt.set_old_location(x: x, y: y, (xs: xs, ys: ys))
+    }
+    
+    func set_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {
+        emojiArt.set_loc_of(emoji: emoji, x: x, y: y)
+    }
+    
+    func get_location_of(emoji: EmojiArtModel.Emoji) -> (x: Int, y: Int) {
+        return (emoji.x, emoji.y)
+    }
+    
+    func get_old_loc_of(emoji: EmojiArtModel.Emoji) -> (x: Int, y: Int) {
+        return (emoji.xo, emoji.yo)
+    }
+    
+    func set_old_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {
+        emojiArt.set_old_loc_of(emoji: emoji, x: x, y: y)
+    }
+    
+    func is_background_set() -> Bool {
+        return emojiArt.background_is_set()
+    }
+    
+    func set_background_flag(flag: Bool) {
+        emojiArt.set_background_flag(flag: flag)
     }
     
     func select_emoji(emoji: EmojiArtModel.Emoji) {
