@@ -48,6 +48,17 @@ struct EmojiArtModel {
     
     private var uniqueEmojiId = 0
     
+    func check_if_no_more_selected() -> Bool {
+        var result: Bool = true
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
+            if emojis[index].is_selected == true {
+                result = false
+            }
+        }
+        
+        return result
+    }
     mutating func addEmoji(_ text: String, at location: (x: Float, y: Float), size: Int) {
         uniqueEmojiId += 1
         emojis.append(Emoji(text: text, x: location.x, y: location.y, size: size, id: uniqueEmojiId))
