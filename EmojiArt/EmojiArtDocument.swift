@@ -191,6 +191,10 @@ class EmojiArtDocument: ObservableObject
         emojiArt.reset_background_mag(mag: mag)
     }
     
+    func reset_emoji_mags(mag: Double, cx: Float, cy: Float) {
+        emojiArt.reset_emoji_mags(mag: mag, cx: cx, cy: cy)
+    }
+    
     func set_mag_emojis(mag: Double) {
         emojiArt.set_mag_emojis(mag: mag)
     }

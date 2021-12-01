@@ -155,8 +155,6 @@ struct EmojiArtDocumentView: View {
     
     // MARK: - Zooming
     
-    @State private var steadyStateZoomScale: CGFloat = 1
-    
     private func zoomGesture(in geometry: GeometryProxy) -> some Gesture {
         MagnificationGesture()
             .updating($dummy_state) { latestGestureScale, dummy_state, _ in
@@ -235,18 +233,17 @@ struct EmojiArtDocumentView: View {
         if let image = image, image.size.width > 0, image.size.height > 0, size.width > 0, size.height > 0  {
             let hZoom = size.width / image.size.width
             let vZoom = size.height / image.size.height
-            steadyStatePanOffset = .zero
-            steadyStateZoomScale = min(hZoom, vZoom)
             let magn = min(hZoom, vZoom)
             
+            //The order of the following calls matters
+            document.reset_emoji_mags(mag: magn, cx: Float(center.x), cy: Float(center.y))
             document.reset_background_location(x: Float(center.x), y: Float(center.y))
             document.reset_background_mag(mag: magn)
+
         }
     }
     
     // MARK: - Panning
-    
-    @State private var steadyStatePanOffset: CGSize = CGSize.zero
     
     @GestureState private var dummy_state: CGSize = CGSize.zero
     

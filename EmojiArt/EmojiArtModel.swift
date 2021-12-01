@@ -100,6 +100,21 @@ struct EmojiArtModel {
         self.background_mag_o = mag
     }
     
+    mutating func reset_emoji_mags(mag: Double, cx: Float, cy: Float) {
+        let num_emoji = emojis.count
+        let mag_ratio = mag / self.background_mag
+        for index in 0..<num_emoji {
+            let delx = emojis[index].x - self.back_loc_x
+            let dely = emojis[index].y - self.back_loc_y
+            emojis[index].x = cx + delx * Float(mag_ratio)
+            emojis[index].y = cy + dely * Float(mag_ratio)
+            emojis[index].xo = cx + delx * Float(mag_ratio)
+            emojis[index].yo = cy + dely * Float(mag_ratio)
+            emojis[index].mag = emojis[index].mag * mag_ratio
+            emojis[index].mago = emojis[index].mag
+        }
+    }
+    
     mutating func set_mag_emojis(mag: Double) {
         let num_emoji = emojis.count
         for index in 0..<num_emoji {
