@@ -161,30 +161,22 @@ struct EmojiArtDocumentView: View {
     private func zoomGesture(in geometry: GeometryProxy) -> some Gesture {
         MagnificationGesture()
             .updating($dummy_state) { latestGestureScale, dummy_state, _ in
-                print("zoom gesture update")
-                print(latestGestureScale.magnitude)
                 let center = geometry.frame(in: .local).center
                 let magn = latestGestureScale.magnitude
-                print("mag:")
-                print(magn)
-                print(center)
-//                document.set_mag(mag: mag)
-//                document.scale_emoji(center: center, mag: Float(mag))
+
+                document.set_mag_emojis(mag: magn)
+                document.scale_emoji(center: center, mag: Float(magn))
                 document.set_background_mag(mag: magn)
-//                document.scale_background(center: center, mag: Float(magn))
+                document.scale_background(center: center, mag: Float(magn))
             }
             .onEnded { gestureScaleAtEnd in
-                print("zoom gesture")
-                
                 let magn = gestureScaleAtEnd.magnitude
-                let any = document.get_background_mag_o()
+                
                 document.set_background_mag(mag: magn)
-                document.set_background_mag_o(mag: magn * any)
-//                let center = geometry.frame(in: .local).center
-//                document.set_mag(mag: mag)
-//                document.scale_emoji(center: center, mag: Float(mag))
-//                document.set_background_mag(mag: mag)
-//                document.scale_background(center: center, mag: Float(mag))
+                document.set_background_mag_o(mag: magn)
+                document.set_mag_o_emojis(mag: magn)
+                document.set_old_background_loc()
+                document.set_old_emoji_pos()
             }
     }
     

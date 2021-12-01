@@ -30,6 +30,7 @@ struct EmojiArtModel {
         var is_selected: Bool = false
         var size: Int
         var mag: Double = 1.0
+        var mago: Double = 1.0
         let id: Int
         
         fileprivate init(text: String, x: Int, y: Int, size: Int, id: Int) {
@@ -94,12 +95,26 @@ struct EmojiArtModel {
         self.background_mag = mag * self.background_mag_o
     }
     
+    mutating func set_mag_emojis(mag: Double) {
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
+            emojis[index].mag = mag * emojis[index].mago
+        }
+    }
+    
+    mutating func set_mag_o_emojis(mag: Double) {
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
+            emojis[index].mago = mag * emojis[index].mago
+        }
+    }
+    
     func get_background_mag_o() -> Double {
         return self.background_mag_o
     }
     
     mutating func set_background_mag_o(mag: Double) {
-        self.background_mag_o = mag
+        self.background_mag_o = self.background_mag_o * mag
     }
     
     mutating func set_location(x: Int, y: Int, _ location: (xs: Int, ys: Int)) {
@@ -157,30 +172,36 @@ struct EmojiArtModel {
     mutating func scale_emoji(cx: Float, cy: Float, mag: Float) {
         let num_emoji = emojis.count
         for index in 0..<num_emoji {
-            let delx = Float(emojis[index].x) - cx
-            let dely = Float(emojis[index].y) - cy
-            let facx = delx * mag//Float(emojis[index].mag)
-            let facy = dely * mag//Float(emojis[index].mag)
-            emojis[index].x = emojis[index].x - Int(facx)
-            emojis[index].y = emojis[index].y - Int(facy)
+            let delx = Float(emojis[index].xo) - cx
+            let dely = Float(emojis[index].yo) - cy
+            let facx = delx * mag
+            let facy = dely * mag
+            emojis[index].x = Int(cx) + Int(facx)
+            emojis[index].y = Int(cy) + Int(facy)
+        }
+    }
+    
+    mutating func set_old_emoji_pos() {
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
             emojis[index].xo = emojis[index].x
             emojis[index].yo = emojis[index].y
-            print("emojis[index].x")
-            print(emojis[index].x)
-            print(emojis[index].x)
         }
     }
     
     mutating func scale_background(cx: Float, cy: Float, mag: Float) {
 
-        let delx = back_loc_x - cx
-        let dely = back_loc_y - cy
-        let facx = delx * mag//Float(emojis[index].mag)
-        let facy = dely * mag//Float(emojis[index].mag)
-        self.back_loc_x = back_loc_x - facx
-        back_loc_y = back_loc_y - facy
-//        back_loc_xo = back_loc_x
-//        back_loc_yo = back_loc_y
+        let delx = self.back_loc_xo - cx
+        let dely = self.back_loc_yo - cy
+        let facx = delx * mag
+        let facy = dely * mag
+        self.back_loc_x = cx + facx
+        self.back_loc_y = cy + facy
+    }
+    
+    mutating func set_old_background_loc() {
+        self.back_loc_xo = self.back_loc_x
+        self.back_loc_yo = self.back_loc_y
     }
     
     mutating func set_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {

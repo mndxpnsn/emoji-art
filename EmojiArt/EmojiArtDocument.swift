@@ -95,6 +95,10 @@ class EmojiArtDocument: ObservableObject
         emojiArt.scale_background(cx: cx, cy: cy, mag: mag)
     }
     
+    func set_old_background_loc() {
+        emojiArt.set_old_background_loc()
+    }
+    
     func get_background_location() -> (x: Float, y: Float) {
         return emojiArt.get_background_location()
     }
@@ -173,12 +177,24 @@ class EmojiArtDocument: ObservableObject
         emojiArt.set_background_mag_o(mag: mag)
     }
     
+    func set_mag_emojis(mag: Double) {
+        emojiArt.set_mag_emojis(mag: mag)
+    }
+    
+    func set_mag_o_emojis(mag: Double) {
+        emojiArt.set_mag_o_emojis(mag: mag)
+    }
+    
     func set_mag(mag: Double) {
         emojiArt.set_mag(mag: mag)
     }
     
     func set_mag_selected(mag: Double) {
         emojiArt.set_mag_selected(mag: mag)
+    }
+    
+    func set_old_emoji_pos() {
+        emojiArt.set_old_emoji_pos()
     }
     
     func select_emoji(emoji: EmojiArtModel.Emoji) {
