@@ -95,6 +95,11 @@ struct EmojiArtModel {
         self.background_mag = mag * self.background_mag_o
     }
     
+    mutating func reset_background_mag(mag: Double) {
+        self.background_mag = mag
+        self.background_mag_o = mag
+    }
+    
     mutating func set_mag_emojis(mag: Double) {
         let num_emoji = emojis.count
         for index in 0..<num_emoji {
@@ -269,6 +274,13 @@ struct EmojiArtModel {
         let yloc = self.back_loc_y
         
         return (xloc, yloc)
+    }
+    
+    mutating func reset_background_location(x: Float, y: Float) {
+        self.back_loc_x = x
+        self.back_loc_y = y
+        self.back_loc_xo = x
+        self.back_loc_yo = y
     }
     
     mutating func set_background_location(x: Float, y: Float, _ location: (xs: Float, ys: Float)) {

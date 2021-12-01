@@ -31,7 +31,7 @@ struct EmojiArtDocumentView: View {
                             .scaleEffect(document.get_background_mag())
                             .position(position_background(in: geometry))
                     )
-                    .gesture(doubleTapToZoom(in: geometry.size))
+                        .gesture(doubleTapToZoom(in: geometry.size, in: geometry))
                     if document.backgroundImageFetchStatus == .fetching {
                         ProgressView().scaleEffect(2)
                     } else {
@@ -62,7 +62,7 @@ struct EmojiArtDocumentView: View {
                             .scaleEffect(document.get_background_mag())
                             .position(position_background(in: geometry))
                     )
-                    .gesture(doubleTapToZoom(in: geometry.size))
+                        .gesture(doubleTapToZoom(in: geometry.size, in: geometry))
                     if document.backgroundImageFetchStatus == .fetching {
                         ProgressView().scaleEffect(2)
                     } else {
@@ -196,11 +196,11 @@ struct EmojiArtDocumentView: View {
             }
     }
     
-    private func doubleTapToZoom(in size: CGSize) -> some Gesture {
+    private func doubleTapToZoom(in size: CGSize, in geometry: GeometryProxy) -> some Gesture {
         TapGesture(count: 2)
             .onEnded {
                 withAnimation {
-                    zoomToFit(document.backgroundImage, in: size)
+                    zoomToFit(document.backgroundImage, in: size, in: geometry)
                 }
             }
     }
@@ -230,12 +230,17 @@ struct EmojiArtDocumentView: View {
             }
     }
     
-    private func zoomToFit(_ image: UIImage?, in size: CGSize) {
+    private func zoomToFit(_ image: UIImage?, in size: CGSize, in geometry: GeometryProxy) {
+        let center = geometry.frame(in: .local).center
         if let image = image, image.size.width > 0, image.size.height > 0, size.width > 0, size.height > 0  {
             let hZoom = size.width / image.size.width
             let vZoom = size.height / image.size.height
             steadyStatePanOffset = .zero
             steadyStateZoomScale = min(hZoom, vZoom)
+            let magn = min(hZoom, vZoom)
+            
+            document.reset_background_location(x: Float(center.x), y: Float(center.y))
+            document.reset_background_mag(mag: magn)
         }
     }
     
