@@ -111,6 +111,7 @@ struct EmojiArtDocumentView: View {
     }
     
     // MARK: - Positioning/Sizing Emoji
+    
     private func position_background(in geometry: GeometryProxy) -> CGPoint {
         let center = geometry.frame(in: .local).center
         let flag = document.is_background_set()
