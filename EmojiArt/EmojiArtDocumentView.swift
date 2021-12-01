@@ -80,7 +80,7 @@ struct EmojiArtDocumentView: View {
                 .onDrop(of: [.plainText,.url,.image], isTargeted: nil) { providers, location in
                     drop(providers: providers, at: location, in: geometry)
                 }
-                .gesture(unselect_gesture().simultaneously(with: zoomGesture_selected()))
+                .gesture(unselect_gesture().simultaneously(with: zoomGesture_selected(in: geometry)))
             }
         }
     }
@@ -179,19 +179,20 @@ struct EmojiArtDocumentView: View {
             }
     }
     
-    private func zoomGesture_selected() -> some Gesture {
+    private func zoomGesture_selected(in geometry: GeometryProxy) -> some Gesture {
         MagnificationGesture()
             .updating($dummy_state) { latestGestureScale, dummy_state, _ in
-                print("zoom gesture update")
-                print(latestGestureScale.magnitude)
-                let mag = latestGestureScale.magnitude
-                document.set_mag_selected(mag: mag)
-                
+                let center = geometry.frame(in: .local).center
+                let magn = latestGestureScale.magnitude
+
+                document.set_mag_emojis_selected(mag: magn)
+                document.scale_emoji_selected(center: center, mag: Float(magn))
             }
             .onEnded { gestureScaleAtEnd in
-                print("zoom gesture")
-                let mag = gestureScaleAtEnd.magnitude
-                document.set_mag_selected(mag: mag)
+                let magn = gestureScaleAtEnd.magnitude
+                
+                document.set_mag_o_emojis_selected(mag: magn)
+                document.set_old_emoji_pos()
             }
     }
     

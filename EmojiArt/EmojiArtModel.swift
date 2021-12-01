@@ -109,6 +109,24 @@ struct EmojiArtModel {
         }
     }
     
+    mutating func set_mag_emojis_selected(mag: Double) {
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
+            if emojis[index].is_selected {
+                emojis[index].mag = mag * emojis[index].mago
+            }
+        }
+    }
+    
+    mutating func set_mag_o_emojis_selected(mag: Double) {
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
+            if emojis[index].is_selected {
+                emojis[index].mago = mag * emojis[index].mago
+            }
+        }
+    }
+    
     func get_background_mag_o() -> Double {
         return self.background_mag_o
     }
@@ -178,6 +196,20 @@ struct EmojiArtModel {
             let facy = dely * mag
             emojis[index].x = cx + facx
             emojis[index].y = cy + facy
+        }
+    }
+    
+    mutating func scale_emoji_selected(cx: Float, cy: Float, mag: Float) {
+        let num_emoji = emojis.count
+        for index in 0..<num_emoji {
+            if emojis[index].is_selected {
+                let delx = Float(emojis[index].xo) - cx
+                let dely = Float(emojis[index].yo) - cy
+                let facx = delx * mag
+                let facy = dely * mag
+                emojis[index].x = cx + facx
+                emojis[index].y = cy + facy
+            }
         }
     }
     

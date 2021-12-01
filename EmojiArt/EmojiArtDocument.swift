@@ -89,6 +89,12 @@ class EmojiArtDocument: ObservableObject
         emojiArt.scale_emoji(cx: cx, cy: cy, mag: mag)
     }
     
+    func scale_emoji_selected(center: CGPoint, mag: Float) {
+        let cx = Float(center.x)
+        let cy = Float(center.y)
+        emojiArt.scale_emoji_selected(cx: cx, cy: cy, mag: mag)
+    }
+    
     func scale_background(center: CGPoint, mag: Float) {
         let cx = Float(center.x)
         let cy = Float(center.y)
@@ -183,6 +189,14 @@ class EmojiArtDocument: ObservableObject
     
     func set_mag_o_emojis(mag: Double) {
         emojiArt.set_mag_o_emojis(mag: mag)
+    }
+    
+    func set_mag_emojis_selected(mag: Double) {
+        emojiArt.set_mag_emojis_selected(mag: mag)
+    }
+    
+    func set_mag_o_emojis_selected(mag: Double) {
+        emojiArt.set_mag_o_emojis_selected(mag: mag)
     }
     
     func set_mag(mag: Double) {
