@@ -20,7 +20,6 @@ struct EmojiArtDocumentView: View {
     }
      
     @State private var selected_mode: Bool = false
-    @GestureState private var selected_mode_state: Bool = false
     
     var documentBody: some View {
         GeometryReader { geometry in
@@ -142,7 +141,6 @@ struct EmojiArtDocumentView: View {
         var result: CGPoint = CGPoint(x: 0, y: 0)
         result.x = loc_x
         result.y = loc_y
-        print(result)
         
         return result
     }
