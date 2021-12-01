@@ -1,4 +1,4 @@
 EmojiArt.xcodeproj
-./Assets.xcassets/
-./Preview Content/
+EmojiArt/Assets.xcassets/
+EmojiArt/Preview Content/
 .DS_Store
