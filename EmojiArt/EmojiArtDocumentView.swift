@@ -30,7 +30,7 @@ struct EmojiArtDocumentView: View {
                             .scaleEffect(document.get_background_mag())
                             .position(position_background(in: geometry))
                     )
-                        .gesture(doubleTapToZoom(in: geometry.size, in: geometry))
+                    .gesture(doubleTapToZoom(in: geometry.size, in: geometry))
                     if document.backgroundImageFetchStatus == .fetching {
                         ProgressView().scaleEffect(2)
                     } else {
@@ -60,7 +60,7 @@ struct EmojiArtDocumentView: View {
                             .scaleEffect(document.get_background_mag())
                             .position(position_background(in: geometry))
                     )
-                        .gesture(doubleTapToZoom(in: geometry.size, in: geometry))
+                    .gesture(doubleTapToZoom(in: geometry.size, in: geometry))
                     if document.backgroundImageFetchStatus == .fetching {
                         ProgressView().scaleEffect(2)
                     } else {
