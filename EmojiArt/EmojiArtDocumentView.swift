@@ -112,19 +112,25 @@ struct EmojiArtDocumentView: View {
     
     // MARK: - Positioning/Sizing Emoji
     
-    private func position_background(in geometry: GeometryProxy) -> CGPoint {
+    private func initialize_background_position(in geometry: GeometryProxy) {
         let center = geometry.frame(in: .local).center
         let flag = document.is_background_set()
-        var result: CGPoint = CGPoint(x: 0, y: 0)
         
         if flag == false {
             document.set_background_flag(flag: true)
             document.set_background_location(x: Float(center.x), y: Float(center.y), (xs: Float(0), ys: Float(0)))
             let cgp: CGPoint = CGPoint(x: 0, y: 0)
-            result = cgp
             document.set_old_background_location(xo: Float(center.x), yo: Float(center.y), cgp: cgp)
         }
-        else {
+    }
+    
+    private func position_background(in geometry: GeometryProxy) -> CGPoint {
+        let flag = document.is_background_set()
+        var result: CGPoint = CGPoint(x: 0, y: 0)
+        
+        initialize_background_position(in: geometry)
+        
+        if flag == true {
             let back_loc = document.get_background_location()
             result.x = CGFloat(back_loc.x)
             result.y = CGFloat(back_loc.y)
