@@ -238,14 +238,14 @@ class EmojiArtDocument: ObservableObject
                 emojiArt.emojis[index].op = 1.0
                 emojiArt.emojis[index].is_selected = false
                 let num_emoji = emojiArt.emojis.count
-                for index in 0..<num_emoji {
-                    if emojis[index].is_selected == true {
+                for index_loc in 0..<num_emoji {
+                    if emojis[index_loc].is_selected == true {
                         there_are_emoji_selected = true
                     }
                 }
-                if !there_are_emoji_selected {
-                    unselect_all_emoji()
-                }
+            }
+            if !there_are_emoji_selected {
+                unselect_all_emoji()
             }
         }
         

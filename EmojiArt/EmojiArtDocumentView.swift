@@ -42,9 +42,8 @@ struct EmojiArtDocumentView: View {
                                 .scaleEffect(document.get_mag_of(emoji: emoji))
                                 .position(position_selected(for: emoji, in: geometry))
                                 .onTapGesture {
-                                    let there_are_emoji_selected = document.select_emoji(emoji: emoji)
-                                    if !there_are_emoji_selected { selected_mode = false }
-                                    else { selected_mode = true }
+                                    _ = document.select_emoji(emoji: emoji)
+                                    selected_mode = true
                                 }
                         }
                     }
