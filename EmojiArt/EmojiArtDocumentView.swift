@@ -103,7 +103,7 @@ struct EmojiArtDocumentView: View {
                 if let emoji = string.first, emoji.isEmoji {
                     document.addEmoji(
                         String(emoji),
-                        at: (Int(location.x), Int(location.y)),
+                        at: (Float(location.x), Float(location.y)),
                         size: defaultEmojiFontSize / 1
                     )
                 }
@@ -120,7 +120,6 @@ struct EmojiArtDocumentView: View {
         
         if flag == false {
             document.set_background_flag(flag: true)
-            document.set_emoji_at(index: 0, x: Int(center.x), y: Int(center.y))
             document.set_background_location(x: Float(center.x), y: Float(center.y), (xs: Float(0), ys: Float(0)))
             let cgp: CGPoint = CGPoint(x: 0, y: 0)
             result = cgp
@@ -218,14 +217,14 @@ struct EmojiArtDocumentView: View {
             .updating($dummy_state) { latestDragGestureValue, dummy_state, _ in
                 let loc_x = latestDragGestureValue.location.x
                 let loc_y = latestDragGestureValue.location.y
-                document.set_loc(x: Int(loc_x), y: Int(loc_y), cgp: latestDragGestureValue.startLocation)
+                document.set_loc(x: Float(loc_x), y: Float(loc_y), cgp: latestDragGestureValue.startLocation)
                 print("my drag gesture updating")
             }
             .onEnded { finalDragGestureValue in
                 let loc_x = finalDragGestureValue.location.x
                 let loc_y = finalDragGestureValue.location.y
-                document.set_loc(x: Int(loc_x), y: Int(loc_y), cgp: finalDragGestureValue.startLocation)
-                document.set_old_loc(x: Int(loc_x), y: Int(loc_y), cgp: finalDragGestureValue.startLocation)
+                document.set_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
+                document.set_old_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
                 print("my drag gesture")
             }
     }
@@ -252,7 +251,7 @@ struct EmojiArtDocumentView: View {
                 let loc_y = latestDragGestureValue.location.y
                 let xs = Float(latestDragGestureValue.startLocation.x)
                 let ys = Float(latestDragGestureValue.startLocation.y)
-                document.set_loc(x: Int(loc_x), y: Int(loc_y), cgp: latestDragGestureValue.startLocation)
+                document.set_loc(x: Float(loc_x), y: Float(loc_y), cgp: latestDragGestureValue.startLocation)
                 document.set_background_location(x: Float(loc_x), y: Float(loc_y), (xs: xs, ys: ys))
                 
             }
@@ -261,8 +260,8 @@ struct EmojiArtDocumentView: View {
                 let loc_y = finalDragGestureValue.location.y
                 let xs = Float(finalDragGestureValue.startLocation.x)
                 let ys = Float(finalDragGestureValue.startLocation.y)
-                document.set_loc(x: Int(loc_x), y: Int(loc_y), cgp: finalDragGestureValue.startLocation)
-                document.set_old_loc(x: Int(loc_x), y: Int(loc_y), cgp: finalDragGestureValue.startLocation)
+                document.set_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
+                document.set_old_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
                 document.set_background_location(x: Float(loc_x), y: Float(loc_y), (xs: xs, ys: ys))
                 document.set_old_background_location(xo: Float(loc_x), yo: Float(loc_y), cgp: finalDragGestureValue.startLocation)
                 print("pan gesture")

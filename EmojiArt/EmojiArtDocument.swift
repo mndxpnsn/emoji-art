@@ -66,14 +66,14 @@ class EmojiArtDocument: ObservableObject
         emojiArt.background = background
     }
     
-    func addEmoji(_ emoji: String, at location: (x: Int, y: Int), size: CGFloat) {
+    func addEmoji(_ emoji: String, at location: (x: Float, y: Float), size: CGFloat) {
         emojiArt.addEmoji(emoji, at: location, size: Int(size))
     }
     
     func moveEmoji(_ emoji: EmojiArtModel.Emoji, by offset: CGSize) {
         if let index = emojiArt.emojis.index(matching: emoji) {
-            emojiArt.emojis[index].x += Int(offset.width)
-            emojiArt.emojis[index].y += Int(offset.height)
+            emojiArt.emojis[index].x += Float(offset.width)
+            emojiArt.emojis[index].y += Float(offset.height)
         }
     }
     
@@ -117,35 +117,35 @@ class EmojiArtDocument: ObservableObject
         emojiArt.set_old_background_location(xo: xo, yo: yo, (xs: xs, ys: ys))
     }
     
-    func set_del_pos(delx: Int, dely: Int) {
+    func set_del_pos(delx: Float, dely: Float) {
         emojiArt.set_del_loc(delx: delx, dely: dely)
     }
     
-    func set_loc(x: Int, y: Int, cgp: CGPoint) {
-        let xs = Int(cgp.x)
-        let ys = Int(cgp.y)
+    func set_loc(x: Float, y: Float, cgp: CGPoint) {
+        let xs = Float(cgp.x)
+        let ys = Float(cgp.y)
         emojiArt.set_location(x: x, y: y, (xs: xs, ys: ys))
     }
     
-    func set_old_loc(x: Int, y: Int, cgp: CGPoint) {
-        let xs = Int(cgp.x)
-        let ys = Int(cgp.y)
+    func set_old_loc(x: Float, y: Float, cgp: CGPoint) {
+        let xs = Float(cgp.x)
+        let ys = Float(cgp.y)
         emojiArt.set_old_location(x: x, y: y, (xs: xs, ys: ys))
     }
     
-    func set_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {
+    func set_loc_of(emoji: EmojiArtModel.Emoji, x: Float, y: Float) {
         emojiArt.set_loc_of(emoji: emoji, x: x, y: y)
     }
     
-    func get_location_of(emoji: EmojiArtModel.Emoji) -> (x: Int, y: Int) {
+    func get_location_of(emoji: EmojiArtModel.Emoji) -> (x: Float, y: Float) {
         return (emoji.x, emoji.y)
     }
     
-    func get_old_loc_of(emoji: EmojiArtModel.Emoji) -> (x: Int, y: Int) {
+    func get_old_loc_of(emoji: EmojiArtModel.Emoji) -> (x: Float, y: Float) {
         return (emoji.xo, emoji.yo)
     }
     
-    func set_old_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {
+    func set_old_loc_of(emoji: EmojiArtModel.Emoji, x: Float, y: Float) {
         emojiArt.set_old_loc_of(emoji: emoji, x: x, y: y)
     }
     
@@ -213,7 +213,7 @@ class EmojiArtDocument: ObservableObject
         }
     }
     
-    func set_emoji_at(index: Int, x: Int, y: Int) {
+    func set_emoji_at(index: Int, x: Float, y: Float) {
         emojiArt.set_loc_of(emoji: emojiArt.emojis[index], x: x, y: y)
     }
     

@@ -22,10 +22,10 @@ struct EmojiArtModel {
     
     struct Emoji: Identifiable, Hashable {
         let text: String
-        var x: Int // offset from the center
-        var y: Int // offset from the center
-        var xo: Int
-        var yo: Int
+        var x: Float // offset from the center
+        var y: Float // offset from the center
+        var xo: Float
+        var yo: Float
         var op: Double = 1.0
         var is_selected: Bool = false
         var size: Int
@@ -33,7 +33,7 @@ struct EmojiArtModel {
         var mago: Double = 1.0
         let id: Int
         
-        fileprivate init(text: String, x: Int, y: Int, size: Int, id: Int) {
+        fileprivate init(text: String, x: Float, y: Float, size: Int, id: Int) {
             self.text = text
             self.x = x
             self.y = y
@@ -48,12 +48,12 @@ struct EmojiArtModel {
     
     private var uniqueEmojiId = 0
     
-    mutating func addEmoji(_ text: String, at location: (x: Int, y: Int), size: Int) {
+    mutating func addEmoji(_ text: String, at location: (x: Float, y: Float), size: Int) {
         uniqueEmojiId += 1
         emojis.append(Emoji(text: text, x: location.x, y: location.y, size: size, id: uniqueEmojiId))
     }
     
-    func get_location_at_index(index: Int) -> (x: Int, y: Int) {
+    func get_location_at_index(index: Int) -> (x: Float, y: Float) {
         return (emojis[index].x, emojis[index].y)
     }
     
@@ -117,7 +117,7 @@ struct EmojiArtModel {
         self.background_mag_o = self.background_mag_o * mag
     }
     
-    mutating func set_location(x: Int, y: Int, _ location: (xs: Int, ys: Int)) {
+    mutating func set_location(x: Float, y: Float, _ location: (xs: Float, ys: Float)) {
         let num_emoji = emojis.count
         print("num_emoji")
         print(num_emoji)
@@ -137,7 +137,7 @@ struct EmojiArtModel {
         }
     }
     
-    mutating func set_old_location(x: Int, y: Int, _ location: (xs: Int, ys: Int)) {
+    mutating func set_old_location(x: Float, y: Float, _ location: (xs: Float, ys: Float)) {
         let num_emoji = emojis.count
         print("num_emoji")
         print(num_emoji)
@@ -157,7 +157,7 @@ struct EmojiArtModel {
         }
     }
     
-    mutating func set_old_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {
+    mutating func set_old_loc_of(emoji: EmojiArtModel.Emoji, x: Float, y: Float) {
         let num_emoji = emojis.count
         for index in 0..<num_emoji {
             if emojis[index].id == emoji.id {
@@ -176,8 +176,8 @@ struct EmojiArtModel {
             let dely = Float(emojis[index].yo) - cy
             let facx = delx * mag
             let facy = dely * mag
-            emojis[index].x = Int(cx) + Int(facx)
-            emojis[index].y = Int(cy) + Int(facy)
+            emojis[index].x = cx + facx
+            emojis[index].y = cy + facy
         }
     }
     
@@ -204,7 +204,7 @@ struct EmojiArtModel {
         self.back_loc_yo = self.back_loc_y
     }
     
-    mutating func set_loc_of(emoji: EmojiArtModel.Emoji, x: Int, y: Int) {
+    mutating func set_loc_of(emoji: EmojiArtModel.Emoji, x: Float, y: Float) {
         let num_emoji = emojis.count
         for index in 0..<num_emoji {
             if emojis[index].id == emoji.id {
@@ -220,7 +220,7 @@ struct EmojiArtModel {
         }
     }
 
-    mutating func set_del_loc(delx: Int, dely: Int) {
+    mutating func set_del_loc(delx: Float, dely: Float) {
         let num_emoji = emojis.count
         print("num_emoji")
         print(num_emoji)
