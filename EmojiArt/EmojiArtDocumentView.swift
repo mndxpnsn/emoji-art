@@ -41,7 +41,7 @@ struct EmojiArtDocumentView: View {
                                 .scaleEffect(document.get_mag_of(emoji: emoji))
                                 .position(position_selected(for: emoji, in: geometry))
                                 .onTapGesture {
-                                    _ = document.select_emoji(emoji: emoji)
+                                    document.select_emoji(emoji: emoji)
                                     selected_mode = true
                                 }
                         }
@@ -203,8 +203,10 @@ struct EmojiArtDocumentView: View {
     private func my_tap_gesture(emoji: EmojiArtModel.Emoji) -> some Gesture {
         TapGesture()
             .onEnded {
-                let there_are_emoji_selected = document.select_emoji(emoji: emoji)
+                document.select_emoji(emoji: emoji)
+                let there_are_emoji_selected = document.there_is_an_emoji_selected()
                 if !there_are_emoji_selected {
+                    document.unselect_all_emoji()
                     selected_mode = false
                 }
             }

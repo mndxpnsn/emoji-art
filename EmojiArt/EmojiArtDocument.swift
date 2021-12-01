@@ -235,28 +235,20 @@ class EmojiArtDocument: ObservableObject
         return there_are_emoji_selected
     }
     
-    func select_emoji(emoji: EmojiArtModel.Emoji) -> Bool {
+    func select_emoji(emoji: EmojiArtModel.Emoji) {
         emojiArt.pannable = false
         emojiArt.zoomable = false
-        var there_are_emoji_selected: Bool = false
         if let index = emojiArt.emojis.index(matching: emoji) {
-            
             if !emojiArt.emojis[index].is_selected {
                 emojiArt.emojis[index].op = 0.5
                 emojiArt.emojis[index].is_selected = true
-                there_are_emoji_selected = true
             }
             else {
                 emojiArt.emojis[index].op = 1.0
                 emojiArt.emojis[index].is_selected = false
-                there_are_emoji_selected = there_is_an_emoji_selected()
-            }
-            if !there_are_emoji_selected {
-                unselect_all_emoji()
             }
         }
-        
-        return there_are_emoji_selected
+    
     }
     
     func set_emoji_at(index: Int, x: Float, y: Float) {
