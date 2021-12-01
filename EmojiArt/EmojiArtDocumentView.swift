@@ -43,13 +43,8 @@ struct EmojiArtDocumentView: View {
                                 .position(position_selected(for: emoji, in: geometry))
                                 .onTapGesture {
                                     let there_are_emoji_selected = document.select_emoji(emoji: emoji)
-                                    if !there_are_emoji_selected {
-                                        selected_mode = false
-                                    }
-                                    else {
-                                        selected_mode = true
-                                    }
-                                    print("selected mode false")
+                                    if !there_are_emoji_selected { selected_mode = false }
+                                    else { selected_mode = true }
                                 }
                         }
                     }
@@ -140,8 +135,7 @@ struct EmojiArtDocumentView: View {
     }
     
     private func position_selected(for emoji: EmojiArtModel.Emoji, in geometry: GeometryProxy) -> CGPoint {
-        print("position selected")
-        
+
         let any = document.get_location_of(emoji: emoji)
         let loc_x = CGFloat(any.x)
         let loc_y = CGFloat(any.y)
@@ -215,8 +209,6 @@ struct EmojiArtDocumentView: View {
                 if !there_are_emoji_selected {
                     selected_mode = false
                 }
-                
-                print("my tap gesture")
             }
     }
     
@@ -226,14 +218,12 @@ struct EmojiArtDocumentView: View {
                 let loc_x = latestDragGestureValue.location.x
                 let loc_y = latestDragGestureValue.location.y
                 document.set_loc(x: Float(loc_x), y: Float(loc_y), cgp: latestDragGestureValue.startLocation)
-                print("my drag gesture updating")
             }
             .onEnded { finalDragGestureValue in
                 let loc_x = finalDragGestureValue.location.x
                 let loc_y = finalDragGestureValue.location.y
                 document.set_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
                 document.set_old_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
-                print("my drag gesture")
             }
     }
     
@@ -276,7 +266,6 @@ struct EmojiArtDocumentView: View {
                 document.set_old_loc(x: Float(loc_x), y: Float(loc_y), cgp: finalDragGestureValue.startLocation)
                 document.set_background_location(x: Float(loc_x), y: Float(loc_y), (xs: xs, ys: ys))
                 document.set_old_background_location(xo: Float(loc_x), yo: Float(loc_y), cgp: finalDragGestureValue.startLocation)
-                print("pan gesture")
             }
     }
     
@@ -285,7 +274,6 @@ struct EmojiArtDocumentView: View {
             .onEnded {
                 document.unselect_all_emoji()
                 selected_mode = false
-                print("unselect gesture")
             }
     }
 
